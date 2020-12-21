@@ -1,8 +1,8 @@
-use std::fmt;
-use std::fmt::Display;
+use core::fmt;
+use core::fmt::Display;
 
-use std::ops::{BitAnd, BitOr, BitXor, Not};
-use std::ops::{BitAndAssign, BitOrAssign, BitXorAssign};
+use core::ops::{BitAnd, BitOr, BitXor, Not};
+use core::ops::{BitAndAssign, BitOrAssign, BitXorAssign};
 
 #[derive(Copy, Clone)]
 pub struct U64x8 {

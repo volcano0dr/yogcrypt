@@ -1,5 +1,7 @@
 //! A helper module for commonly used internal functions
 
+use alloc::vec::Vec;
+
 /// Convert bytes into `[u32]` blocks for internal representations.
 ///
 /// ## Example

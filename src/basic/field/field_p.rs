@@ -2,10 +2,10 @@
 //!
 //! The underlying struct is `U64x4`
 use basic::cell::u64x4::*;
-use rand::random;
-use std::fmt;
-use std::fmt::Display;
-use std::ops::{Add, Div, Mul, Neg, Sub};
+use basic::random::Rng;
+use core::fmt;
+use core::fmt::Display;
+use core::ops::{Add, Div, Mul, Neg, Sub};
 
 /// Modulus
 pub const MODULO_P: U64x4 = U64x4 {
@@ -80,11 +80,12 @@ impl FieldElement {
 
     /// Return a random element from the field
     pub fn random() -> Self {
+        let mut rng = Rng::new();
         FieldElement::from_u64([
-            random::<u64>(),
-            random::<u64>(),
-            random::<u64>(),
-            random::<u64>(),
+            rng.next_u64(),
+            rng.next_u64(),
+            rng.next_u64(),
+            rng.next_u64(),
         ])
     }
 }
@@ -304,8 +305,8 @@ mod tests {
 
     #[test]
     fn test_mul() {
-        let ra = u64::from(random::<u32>());
-        let rb = u64::from(random::<u32>());
+        let ra = u64::from(Rng::new().next_u32());
+        let rb = u64::from(Rng::new().next_u32());
         let (mut a, f1) = U64x4::add_no_mod(MODULO_P, U64x4::new(ra, 0, 0, 0));
         let (mut b, f2) = U64x4::add_no_mod(MODULO_P, U64x4::new(rb, 0, 0, 0));
         a = if f1 { a + RHO_P } else { a };

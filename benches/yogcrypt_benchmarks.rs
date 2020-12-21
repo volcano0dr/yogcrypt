@@ -1,4 +1,3 @@
-extern crate rand;
 #[macro_use]
 extern crate criterion;
 extern crate yogcrypt;
@@ -97,7 +96,6 @@ mod sm4_benches {
         });
     }
     criterion_group!(benches, sm4_benches::bench_enc, sm4_benches::bench_dec);
-
 }
 
 criterion_main!(

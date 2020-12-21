@@ -23,7 +23,7 @@
 //! [OSCCA: SM3 document](http://www.oscca.gov.cn/sca/xxgk/2010-12/17/1002389/files/302a3ada057c4a73830536d03e683110.pdf)
 
 use basic::util::bytes_to_u32_blocks;
-use std::num::Wrapping;
+use core::num::Wrapping;
 
 pub type HashValue = [u32; 8];
 static IV: [u32; 8] = [
@@ -110,7 +110,8 @@ fn sm3_cf(vi: [u32; 8], bi: [u32; 16]) -> [u32; 8] {
         tt1 = (Wrapping(sm3_ff(a, b, c, j))
             + Wrapping(d)
             + Wrapping(ss2)
-            + Wrapping(w_p[j as usize])).0;
+            + Wrapping(w_p[j as usize]))
+        .0;
         tt2 =
             (Wrapping(sm3_gg(e, f, g, j)) + Wrapping(h) + Wrapping(ss1) + Wrapping(w[j as usize]))
                 .0;
@@ -176,10 +177,10 @@ pub(crate) fn sm3_enc_inner(msg: &[u32], prim_len: usize) -> HashValue {
 
         // add "1" somewhere in this block
         if prim_len >= 512 * i && prim_len < 512 * (i + 1) {
-            let mut bias = prim_len % 512;
+            let bias = prim_len % 512;
 
-            let mut bias_of_word = bias / 32;
-            let mut bias_of_bit = (bias % 32) as u32;
+            let bias_of_word = bias / 32;
+            let bias_of_bit = (bias % 32) as u32;
             b[bias_of_word] += 0x80000000u32.rotate_right(bias_of_bit);
         }
 

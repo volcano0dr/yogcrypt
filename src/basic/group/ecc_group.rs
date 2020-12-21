@@ -1,10 +1,11 @@
 //! Elliptic curve group operations
 //!
 //! Underlying structs are `fieldElement` in `field_p.rs`.
+use alloc::vec::Vec;
 use basic::cell::u64x4::*;
 use basic::field::field_p::*;
-use std::fmt;
-use std::fmt::Display;
+use core::fmt;
+use core::fmt::Display;
 
 /// A coordinate is an element from the field with order `MODULO_P`.
 ///

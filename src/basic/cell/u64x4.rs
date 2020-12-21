@@ -1,18 +1,18 @@
 //! An internal class for 256-bit numbers
 //!
 //! **NOTE**: the 64-bits are stored in little endian
-use std::fmt;
-use std::fmt::Display;
+use core::fmt;
+use core::fmt::Display;
 
-use std::ops::{Add, Neg, Sub};
-use std::ops::{BitAnd, BitOr, BitXor, Not};
-use std::ops::{BitAndAssign, BitOrAssign, BitXorAssign};
+use core::ops::{Add, Neg, Sub};
+use core::ops::{BitAnd, BitOr, BitXor, Not};
+use core::ops::{BitAndAssign, BitOrAssign, BitXorAssign};
 
-use std::cmp::Ordering;
+use core::cmp::Ordering;
 
 use basic::cell::u64x8::*;
 
-use rand::random;
+use basic::random::Rng;
 
 /// A 256-bit number represented using four `u64`'s.
 ///
@@ -57,12 +57,13 @@ impl U64x4 {
 
     /// Return a random 256-bit number
     pub fn random() -> Self {
+        let mut rng = Rng::new();
         Self {
             value: [
-                random::<u64>(),
-                random::<u64>(),
-                random::<u64>(),
-                random::<u64>(),
+                rng.next_u64(),
+                rng.next_u64(),
+                rng.next_u64(),
+                rng.next_u64(),
             ],
         }
     }
